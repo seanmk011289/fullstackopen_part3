@@ -1,5 +1,19 @@
 const express = require("express");
+const morgan = require("morgan");
 const app = express();
+
+// Don't forget this middleware to format request info as json in the request.body
+app.use(express.json());
+
+morgan.token("body", function (req, res) {
+  return JSON.stringify(req.body);
+});
+
+// morgan.token("body", function (req, res) {
+//   return JSON.stringify(req.body);
+// });
+
+app.use(morgan(":method :url :response-time :body"));
 
 let listings = [
   {
